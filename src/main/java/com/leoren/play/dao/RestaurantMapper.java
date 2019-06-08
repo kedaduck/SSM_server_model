@@ -4,7 +4,7 @@ import com.leoren.play.pojo.Restaurant;
 
 import java.util.List;
 
-public interface RestaurantMapper {
+public interface RestaurantMapper extends BaseMapper<Restaurant>{
     int deleteByPrimaryKey(Integer id);
 
     int insert(Restaurant record);
@@ -18,4 +18,6 @@ public interface RestaurantMapper {
     int updateByPrimaryKey(Restaurant record);
 
     List<Restaurant> selectAll();
+
+    List<Restaurant> getAll();
 }

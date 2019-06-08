@@ -1,6 +1,9 @@
 package com.leoren.play.service;
 
+import com.leoren.play.common.PageList;
 import com.leoren.play.common.ServerResponse;
+import com.leoren.play.pojo.Attraction;
+import com.leoren.play.pojo.FindPeople;
 
 /**
  * @ClassName IFindPeopleService
@@ -12,5 +15,11 @@ import com.leoren.play.common.ServerResponse;
 public interface IFindPeopleService {
 
     ServerResponse findAll();
+
+    PageList<FindPeople> findAllFindPeople(int pageNum, int pageSize);
+
+    ServerResponse createPublish(Long userId, int findClass, String title, String detail, String fileName);
+
+    ServerResponse changeFindPeopleState(Long id);
 
 }

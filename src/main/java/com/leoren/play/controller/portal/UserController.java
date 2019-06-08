@@ -50,6 +50,20 @@ public class UserController {
     }
 
 
+    @RequestMapping("change_username.do")
+    @ResponseBody
+    public ServerResponse changeUsername(Integer userId, String username){
+        return iUserService.changeUsername(userId, username);
+    }
+
+    @RequestMapping("change_password.do")
+    @ResponseBody
+    public ServerResponse changePassword(Integer userId, String newPassword){
+        return iUserService.changePassword(userId, newPassword);
+    }
+
+
+
 
 
 

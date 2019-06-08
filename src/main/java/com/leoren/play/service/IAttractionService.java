@@ -1,6 +1,8 @@
 package com.leoren.play.service;
 
+import com.leoren.play.common.PageList;
 import com.leoren.play.common.ServerResponse;
+import com.leoren.play.pojo.Attraction;
 
 /**
  * @ClassName IAttractionService
@@ -9,7 +11,9 @@ import com.leoren.play.common.ServerResponse;
  * @Desc :
  * @Version v1.0
  **/
-public interface IAttractionService {
+public interface IAttractionService{
 
     ServerResponse findAll();
+
+    PageList<Attraction> findAllAttraction(int pageNum, int pageSize);
 }

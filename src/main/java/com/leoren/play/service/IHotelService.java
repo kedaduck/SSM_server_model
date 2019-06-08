@@ -1,6 +1,9 @@
 package com.leoren.play.service;
 
+import com.leoren.play.common.PageList;
 import com.leoren.play.common.ServerResponse;
+import com.leoren.play.pojo.Attraction;
+import com.leoren.play.pojo.Hotel;
 
 /**
  * @ClassName IHotelService
@@ -9,8 +12,10 @@ import com.leoren.play.common.ServerResponse;
  * @Desc :
  * @Version v1.0
  **/
-public interface IHotelService {
+public interface IHotelService  {
 
     ServerResponse findAll();
+
+    PageList<Hotel> findAllHotel(int pageNum, int pageSize);
 
 }

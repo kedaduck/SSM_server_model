@@ -10,7 +10,7 @@ package com.leoren.play.common;
 
 public class Const {
 
-    public static final String ftpServerUrl = "http://192.168.137.1:8080/play_war/img/";
+    public static final String ftpServerUrl = "http://192.168.137.1:20004/";
 
     //普通用户登录方式
     public interface UserLoginType{

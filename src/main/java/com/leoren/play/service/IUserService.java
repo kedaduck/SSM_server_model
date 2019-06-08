@@ -1,6 +1,8 @@
 package com.leoren.play.service;
 
+import com.leoren.play.common.PageList;
 import com.leoren.play.common.ServerResponse;
+import com.leoren.play.pojo.User;
 
 /**
  * @ClassName IUserService
@@ -13,6 +15,10 @@ public interface IUserService {
 
     ServerResponse login(String username, String password);
     ServerResponse register(String username, String password);
+    PageList<User> findAllUser(int pageNum, int pageSize);
+    ServerResponse changePassword(Integer userId, String password);
+    ServerResponse changeUsername(Integer userId, String username);
+    ServerResponse resetUserPassword(Integer userId);
 
 }
 

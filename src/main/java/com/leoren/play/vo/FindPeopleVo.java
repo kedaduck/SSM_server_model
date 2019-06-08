@@ -28,7 +28,7 @@ public class FindPeopleVo {
 
     private String endTime;
 
-    private Integer state;
+    private String state;
 
     private Long userId;
 
@@ -46,7 +46,12 @@ public class FindPeopleVo {
             vo.setPublishTime(DateParseUtil.dateToString(people.getPublishTime()));
         }
         vo.setUserId(people.getUserId());
-        vo.setState(people.getState());
+        if(people.getState() == 0){
+            vo.setState("未找到");
+        }else {
+            vo.setState("已找到");
+        }
+        System.out.println(vo.toString());
         return vo;
     }
 
@@ -67,7 +72,7 @@ public class FindPeopleVo {
     public FindPeopleVo() {
     }
 
-    public FindPeopleVo(Long id, String title, String text, String picture, String publishTime, String endTime, Integer state, Long userId) {
+    public FindPeopleVo(Long id, String title, String text, String picture, String publishTime, String endTime, String state, Long userId) {
         this.id = id;
         this.title = title;
         this.text = text;
@@ -126,11 +131,11 @@ public class FindPeopleVo {
         this.endTime = endTime;
     }
 
-    public Integer getState() {
+    public String getState() {
         return state;
     }
 
-    public void setState(Integer state) {
+    public void setState(String state) {
         this.state = state;
     }
 

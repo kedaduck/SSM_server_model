@@ -110,4 +110,10 @@
     <include refid="Base_Column_List"/>
     from store
   </select>
+  <select id="getAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from store
+  </select>
+
 </mapper>

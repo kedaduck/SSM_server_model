@@ -1,6 +1,9 @@
 package com.leoren.play.service;
 
+import com.leoren.play.common.PageList;
 import com.leoren.play.common.ServerResponse;
+import com.leoren.play.pojo.Attraction;
+import com.leoren.play.pojo.Restaurant;
 
 /**
  * @ClassName IRestaurantService
@@ -9,7 +12,9 @@ import com.leoren.play.common.ServerResponse;
  * @Desc :
  * @Version v1.0
  **/
-public interface IRestaurantService {
+public interface IRestaurantService  {
 
     ServerResponse findAll();
+
+    PageList<Restaurant> findAllRestaurant(int pageNum, int pageSize);
 }

@@ -4,7 +4,7 @@ import com.leoren.play.pojo.Hotel;
 
 import java.util.List;
 
-public interface HotelMapper {
+public interface HotelMapper extends BaseMapper<Hotel>{
     int deleteByPrimaryKey(Integer id);
 
     int insert(Hotel record);
@@ -18,4 +18,6 @@ public interface HotelMapper {
     int updateByPrimaryKey(Hotel record);
 
     List<Hotel> selectAll();
+
+    List<Hotel> getAll();
 }

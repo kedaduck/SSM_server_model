@@ -1,7 +1,11 @@
 package com.leoren.play.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.leoren.play.common.Const;
+import com.leoren.play.common.PageList;
 import com.leoren.play.common.ServerResponse;
+import com.leoren.play.dao.BaseMapper;
 import com.leoren.play.dao.RestaurantMapper;
 import com.leoren.play.dao.StoreMapper;
 import com.leoren.play.pojo.Restaurant;
@@ -26,6 +30,7 @@ public class StoreServiceImpl implements IStoreService {
     @Autowired
     private StoreMapper mapper;
 
+
     public ServerResponse findAll(){
         List<Store> storeList = mapper.selectAll();
         if(storeList == null || storeList.size() <= 0){
@@ -35,6 +40,15 @@ public class StoreServiceImpl implements IStoreService {
             storeList.get(i).setPicture(Const.ftpServerUrl + storeList.get(i).getPicture());
         }
         return ServerResponse.createBySuccess(storeList);
+    }
+
+    public PageList<Store> findAllStore(int pageNum, int pageSize){
+        PageHelper.startPage(pageNum, pageSize);
+        List<Store> userList = mapper.getAll();
+        PageInfo<Store> pageInfo = new PageInfo(userList);
+        PageList result = PageList.createSuccess(userList);
+        return result;
+
     }
 
 }

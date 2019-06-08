@@ -1,6 +1,9 @@
 package com.leoren.play.service;
 
+import com.leoren.play.common.PageList;
 import com.leoren.play.common.ServerResponse;
+import com.leoren.play.pojo.Attraction;
+import com.leoren.play.pojo.Store;
 
 /**
  * @ClassName IStoreService
@@ -12,4 +15,6 @@ import com.leoren.play.common.ServerResponse;
 public interface IStoreService {
 
     ServerResponse findAll();
+
+    PageList<Store> findAllStore(int pageNum, int pageSize);
 }

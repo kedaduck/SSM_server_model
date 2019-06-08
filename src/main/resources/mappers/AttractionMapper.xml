@@ -86,4 +86,10 @@
     <include refid="Base_Column_List"/>
     from attraction
   </select>
+
+  <select id="getAllUser" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from attraction
+  </select>
 </mapper>

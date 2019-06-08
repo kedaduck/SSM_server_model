@@ -1,10 +1,11 @@
 package com.leoren.play.dao;
 
 import com.leoren.play.pojo.Attraction;
+import com.leoren.play.query.BaseQuery;
 
 import java.util.List;
 
-public interface AttractionMapper {
+public interface AttractionMapper extends BaseMapper<Attraction> {
     int deleteByPrimaryKey(Integer id);
 
     int insert(Attraction record);
@@ -18,4 +19,6 @@ public interface AttractionMapper {
     int updateByPrimaryKey(Attraction record);
 
     List<Attraction> selectAll();
+
+    List<Attraction> getAllUser();
 }

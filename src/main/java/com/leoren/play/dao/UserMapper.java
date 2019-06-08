@@ -4,7 +4,7 @@ import com.leoren.play.pojo.User;
 
 import java.util.List;
 
-public interface UserMapper {
+public interface UserMapper{
     int deleteByPrimaryKey(Integer id);
 
     int insert(User record);
@@ -20,4 +20,6 @@ public interface UserMapper {
     User selectByUsername(String username);
 
     List<User> findAll();
+
+    List<User> getAllUser();
 }

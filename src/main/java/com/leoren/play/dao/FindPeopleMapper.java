@@ -4,7 +4,7 @@ import com.leoren.play.pojo.FindPeople;
 
 import java.util.List;
 
-public interface FindPeopleMapper {
+public interface FindPeopleMapper extends BaseMapper<FindPeople> {
     int deleteByPrimaryKey(Long id);
 
     int insert(FindPeople record);
@@ -18,4 +18,6 @@ public interface FindPeopleMapper {
     int updateByPrimaryKey(FindPeople record);
 
     List<FindPeople> selectAll();
+
+    List<FindPeople> getAll();
 }

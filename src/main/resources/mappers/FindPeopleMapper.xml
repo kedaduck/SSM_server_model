@@ -132,4 +132,10 @@
     <include refid="Base_Column_List"/>
     from find_people
   </select>
+  <select id="getAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from find_people
+  </select>
+
 </mapper>

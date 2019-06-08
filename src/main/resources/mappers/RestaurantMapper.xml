@@ -110,4 +110,12 @@
     <include refid="Base_Column_List"/>
     from restaurant
   </select>
+
+  <select id="getAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from restaurant
+  </select>
+
+
 </mapper>

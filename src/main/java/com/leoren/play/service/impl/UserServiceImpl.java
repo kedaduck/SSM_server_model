@@ -102,8 +102,18 @@ public class UserServiceImpl implements IUserService {
             return ServerResponse.createByErrorMessage("重置密码失败");
         }
         return ServerResponse.createBySuccessMessage("重置密码成功");
+    }
 
-
+    public ServerResponse deleteUser(Integer userId){
+        User user = userMapper.selectByPrimaryKey(userId);
+        if(user == null){
+            return ServerResponse.createByErrorMessage("没有此用户,删除失败");
+        }
+        int count = userMapper.deleteByPrimaryKey(userId);
+        if(count <= 0){
+            return ServerResponse.createByErrorMessage("删除失败");
+        }
+        return ServerResponse.createBySuccessMessage("删除成功");
     }
 
 }

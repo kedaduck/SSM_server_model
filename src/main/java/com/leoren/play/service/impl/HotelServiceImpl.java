@@ -5,13 +5,8 @@ import com.github.pagehelper.PageInfo;
 import com.leoren.play.common.Const;
 import com.leoren.play.common.PageList;
 import com.leoren.play.common.ServerResponse;
-import com.leoren.play.dao.AttractionMapper;
-import com.leoren.play.dao.BaseMapper;
 import com.leoren.play.dao.HotelMapper;
-import com.leoren.play.pojo.Attraction;
-import com.leoren.play.pojo.FindPeople;
 import com.leoren.play.pojo.Hotel;
-import com.leoren.play.pojo.Store;
 import com.leoren.play.service.IHotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,6 +43,34 @@ public class HotelServiceImpl implements IHotelService {
         PageInfo<Hotel> pageInfo = new PageInfo(userList);
         PageList result = PageList.createSuccess(userList);
         return result;
+
+    }
+
+    public ServerResponse addHotel(String name, String address, String type, Integer price, String fileName){
+        Hotel hotel = new Hotel();
+        hotel.setPicture(fileName);
+        hotel.setName(name);
+        hotel.setText(address);
+        hotel.setPrice(Long.valueOf(price));
+        hotel.setType(type);
+        int count = mapper.insert(hotel);
+        if(count <= 0){
+            return ServerResponse.createByErrorMessage("增加失败");
+        }
+        return ServerResponse.createBySuccessMessage("增加成功");
+    }
+
+    public ServerResponse deleteHotel(Integer id){
+        Hotel hotel = mapper.selectByPrimaryKey(id);
+        if(hotel == null){
+            return ServerResponse.createByErrorMessage("没有此信息，请刷新页面后重试");
+        }
+        int count = mapper.deleteByPrimaryKey(id);
+        if(count <= 0){
+            return ServerResponse.createByErrorMessage("删除失败");
+        }
+        return ServerResponse.createBySuccessMessage("删除成功");
+
 
     }
 

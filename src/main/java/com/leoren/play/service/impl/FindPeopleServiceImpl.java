@@ -11,6 +11,7 @@ import com.leoren.play.dao.FindPeopleMapper;
 import com.leoren.play.pojo.Attraction;
 import com.leoren.play.pojo.FindPeople;
 import com.leoren.play.pojo.Store;
+import com.leoren.play.pojo.User;
 import com.leoren.play.service.IFindPeopleService;
 import com.leoren.play.vo.FindPeopleVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,6 +87,18 @@ public class FindPeopleServiceImpl implements IFindPeopleService {
             return ServerResponse.createByErrorMessage("改变状态失败");
         }
         return ServerResponse.createBySuccessMessage("改变成功");
+    }
+
+    public ServerResponse deleteItem(Long id){
+        FindPeople findPeople = mapper.selectByPrimaryKey(id);
+        if(findPeople == null){
+            return ServerResponse.createByErrorMessage("没有此信息,删除失败");
+        }
+        int count = mapper.deleteByPrimaryKey(id);
+        if(count <= 0){
+            return ServerResponse.createByErrorMessage("删除失败");
+        }
+        return ServerResponse.createBySuccessMessage("删除成功");
     }
 
 

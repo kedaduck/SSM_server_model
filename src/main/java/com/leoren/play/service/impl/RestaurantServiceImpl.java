@@ -51,4 +51,32 @@ public class RestaurantServiceImpl implements IRestaurantService {
 
     }
 
+    public ServerResponse addRestaurant(String name, String address, String foodName, Integer price, String fileName){
+        Restaurant restaurant = new Restaurant();
+        restaurant.setPicture(fileName);
+        restaurant.setName(name);
+        restaurant.setText(address);
+        restaurant.setPrice(Long.valueOf(price));
+        restaurant.setFoodname(fileName);
+        int count = mapper.insert(restaurant);
+        if(count <= 0){
+            return ServerResponse.createByErrorMessage("增加失败");
+        }
+        return ServerResponse.createBySuccessMessage("增加成功");
+    }
+
+    public ServerResponse deleteRestaurant(Integer id){
+        Restaurant restaurant = mapper.selectByPrimaryKey(id);
+        if(restaurant == null){
+            return ServerResponse.createByErrorMessage("没有此信息，请刷新页面后重试");
+        }
+        int count = mapper.deleteByPrimaryKey(id);
+        if(count <= 0){
+            return ServerResponse.createByErrorMessage("删除失败");
+        }
+        return ServerResponse.createBySuccessMessage("删除成功");
+
+
+    }
+
 }

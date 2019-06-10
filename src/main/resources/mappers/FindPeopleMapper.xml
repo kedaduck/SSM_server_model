@@ -130,7 +130,7 @@
   <select id="selectAll" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
-    from find_people
+    from find_people where state = 0
   </select>
   <select id="getAll" resultMap="BaseResultMap">
     select

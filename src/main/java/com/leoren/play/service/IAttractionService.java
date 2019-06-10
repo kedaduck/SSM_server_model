@@ -16,4 +16,8 @@ public interface IAttractionService{
     ServerResponse findAll();
 
     PageList<Attraction> findAllAttraction(int pageNum, int pageSize);
+
+    ServerResponse addAttraction(String name, String address, String fileName);
+
+    ServerResponse deleteAttraction(Integer id);
 }

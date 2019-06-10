@@ -50,4 +50,30 @@ public class AttractionServiceImpl implements IAttractionService {
 
     }
 
+    public ServerResponse addAttraction(String name, String address, String fileName){
+        Attraction attraction = new Attraction();
+        attraction.setPicture(fileName);
+        attraction.setAttractioname(name);
+        attraction.setText(address);
+        int count = mapper.insert(attraction);
+        if(count <= 0){
+            return ServerResponse.createByErrorMessage("增加失败");
+        }
+        return ServerResponse.createBySuccessMessage("增加成功");
+    }
+
+    public ServerResponse deleteAttraction(Integer id){
+        Attraction attraction = mapper.selectByPrimaryKey(id);
+        if(attraction == null){
+            return ServerResponse.createByErrorMessage("没有此信息，请刷新页面后重试");
+        }
+        int count = mapper.deleteByPrimaryKey(id);
+        if(count <= 0){
+            return ServerResponse.createByErrorMessage("删除失败");
+        }
+        return ServerResponse.createBySuccessMessage("删除成功");
+
+
+    }
+
 }

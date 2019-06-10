@@ -8,6 +8,7 @@ import com.leoren.play.common.ServerResponse;
 import com.leoren.play.dao.BaseMapper;
 import com.leoren.play.dao.RestaurantMapper;
 import com.leoren.play.dao.StoreMapper;
+import com.leoren.play.pojo.Hotel;
 import com.leoren.play.pojo.Restaurant;
 import com.leoren.play.pojo.Store;
 import com.leoren.play.service.IStoreService;
@@ -48,6 +49,35 @@ public class StoreServiceImpl implements IStoreService {
         PageInfo<Store> pageInfo = new PageInfo(userList);
         PageList result = PageList.createSuccess(userList);
         return result;
+
+    }
+
+
+    public ServerResponse addStore(String name, String address, Integer price, String storeName, String fileName){
+        Store store = new Store();
+        store.setPicture(fileName);
+        store.setName(name);
+        store.setText(address);
+        store.setPrice(Long.valueOf(price));
+        store.setStorename(storeName);
+        int count = mapper.insert(store);
+        if(count <= 0){
+            return ServerResponse.createByErrorMessage("增加失败");
+        }
+        return ServerResponse.createBySuccessMessage("增加成功");
+    }
+
+    public ServerResponse deleteStore(Integer id){
+        Store store = mapper.selectByPrimaryKey(id);
+        if(store == null){
+            return ServerResponse.createByErrorMessage("没有此信息，请刷新页面后重试");
+        }
+        int count = mapper.deleteByPrimaryKey(id);
+        if(count <= 0){
+            return ServerResponse.createByErrorMessage("删除失败");
+        }
+        return ServerResponse.createBySuccessMessage("删除成功");
+
 
     }
 

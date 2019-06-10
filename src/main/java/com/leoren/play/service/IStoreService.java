@@ -17,4 +17,8 @@ public interface IStoreService {
     ServerResponse findAll();
 
     PageList<Store> findAllStore(int pageNum, int pageSize);
+
+    ServerResponse addStore(String name, String address, Integer price, String storeName, String fileName);
+
+    ServerResponse deleteStore(Integer id);
 }

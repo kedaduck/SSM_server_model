@@ -18,4 +18,8 @@ public interface IHotelService  {
 
     PageList<Hotel> findAllHotel(int pageNum, int pageSize);
 
+    ServerResponse addHotel(String name, String address, String type, Integer price, String fileName);
+
+    ServerResponse deleteHotel(Integer id);
+
 }

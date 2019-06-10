@@ -17,4 +17,8 @@ public interface IRestaurantService  {
     ServerResponse findAll();
 
     PageList<Restaurant> findAllRestaurant(int pageNum, int pageSize);
+
+    ServerResponse addRestaurant(String name, String address, String foodName, Integer price, String fileName);
+
+    ServerResponse deleteRestaurant(Integer id);
 }

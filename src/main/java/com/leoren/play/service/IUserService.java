@@ -19,6 +19,7 @@ public interface IUserService {
     ServerResponse changePassword(Integer userId, String password);
     ServerResponse changeUsername(Integer userId, String username);
     ServerResponse resetUserPassword(Integer userId);
+    ServerResponse deleteUser(Integer userId);
 
 }
 

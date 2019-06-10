@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>会员列表-WeAdmin Frame型后台管理系统-WeAdmin 1.0</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<link rel="stylesheet" href="../../static/css/font.css">
+		<link rel="stylesheet" href="../../static/css/weadmin.css">
+		<link rel="stylesheet" href="../../static/css/user.css">
+		<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+		<!--[if lt IE 9]>
+	      <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+	      <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+	    <![endif]-->
+	</head>
+
+	<body>
+		<div class="weadmin-nav">
+			<span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a href="">寻人启示</a>
+        <a>
+          <cite>列表</cite></a>
+      </span>
+			<a id="refresh" class="layui-btn layui-btn-sm" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+				<i class="layui-icon" style="line-height:30px">&#x1002;</i></a>
+		</div>
+		<div id="testText">
+			<p>列表</p>
+		</div>
+		<div class="weadmin-body">
+			<div class="layui-row">
+				<form class="layui-form layui-col-md12 we-search">
+					<div class="layui-inline">
+						<input type="text" name="username" placeholder="请输入" autocomplete="off" class="layui-input">
+					</div>
+					<button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+				</form>
+			</div>
+			<table class="layui-table" id="user_table" lay-filter="test" width="100%"></table>
+		</div>
+		<!--<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>-->
+		<script src="../../lib/layui/layui.js" charset="utf-8"></script>
+		<script src="../../static/js/eleDel.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../static/js/jquery.min.js"></script>
+		<script src="../../static/js/my_all.js"></script>
+		<script src="../../static/js/ajax-util.js"></script>
+
+        <script type="text/html" id="barDemo">
+            <a class="layui-btn layui-btn-xs" lay-event="detail">查看图片</a>
+			<a class="layui-btn layui-btn-xs" lay-event="edit">找到</a>
+			<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+		</script>
+
+		<!-- <script type="text/html" id="toolbarDemo">
+			<button class="layui-btn layui-btn-sm" layui-event="addUser">添加</button>
+		</script> -->
+
+		<script>
+			layui.use('table', function(){
+				var table = layui.table;
+
+				console.log(base_url + "=================")
+
+				table.render({
+					elem: '#user_table',
+					height: 550,
+					url: base_url + 'admin/find_all_find_people.do',
+					cols: [[ //表头
+						{checkbox: true}
+      			        ,{field: 'id', title: 'ID', width:80, sort: true}
+                        ,{field: 'userId', title: '发布者Id', width:100}
+                        ,{field: 'title', title: '标题', width:100}
+      			        ,{field: 'text', title: '描述', width:200}
+      			        ,{field: 'picture', title: '图片', width:280, sort: true}
+                        ,{field: 'publishTime', title: '发布时间', width:180, sort: true}
+                        ,{field: 'endTime', title: '结束时间', width:180}
+                        ,{field: 'state', title: '状态', width:80}
+						,{fixed: 'right', width: 200, align:'center', toolbar: '#barDemo'}
+					]],
+					page: true,
+					limit: 10,
+					method: 'post',
+					contentType: 'application/json',
+					request:{
+						pageName: 'pageNum',
+						limitName: 'pageSize'
+					}
+
+				});
+
+				table.on('toolbar(test)', function(obj){
+					if(layEvent == 'addUser'){
+						addUser();
+					}
+				});
+
+				table.on('tool(test)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+    			var data = obj.data //获得当前行数据
+    			,layEvent = obj.event; //获得 lay-event 对应的值
+    			if(layEvent === 'detail'){
+						// layer.msg('查看操作');
+						openHeadImg(data.picture);
+    			} else if(layEvent === 'del'){
+      				layer.confirm('真的删除这行么', function(index){
+								deleteUser(data.id, obj, index);
+      				});
+    			} else if(layEvent === 'edit'){
+      				changeState(data.id);
+    			}
+				});
+				
+
+
+
+			});
+
+			function changeState(id){
+				$.ajax({
+						type:'POST',
+						url: base_url + "admin/change_find_people_state.do",
+						data:{id: id},
+						success:function(json){
+							console.log(json);
+							if(json.status == 0){
+								console.log(json.msg);
+								location.reload();
+								layer.msg(json.msg);
+							}else{
+								layer.msg(json.msg);
+							}
+						}
+					});
+			}
+
+
+			function openHeadImg(url){
+				console.log("头像信息" + url);
+				WeAdminShow('用户头像','./showhead.html?headUrl=' + url, 600,600);
+				localStorage.setItem("headUrl", url);
+			}
+
+			function deleteUser(id, obj, index){
+				$.ajax({
+						type:'POST',
+						url: base_url + "admin/delete_find_people.do",
+						data:{id: id},
+						success:function(json){
+							console.log(json);
+							if(json.status == 0){
+								obj.del(); //删除对应行（tr）的DOM结构
+        						layer.close(index);
+								layer.msg(json.msg);
+							}else{
+								layer.msg(json.msg);
+							}
+						}
+					});
+			}
+
+			function addUser(){
+				WeAdminShow('添加用户','./add.html',500,300);
+			}
+
+
+
+		</script>
+
+	</body>
+
+</html>
